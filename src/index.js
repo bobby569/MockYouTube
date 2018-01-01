@@ -16,8 +16,14 @@ class App extends Component {
 			videos: [],
 			selectedVideo: null
 		};
+	}
 
-		this.videoSearch('');
+	componentDidMount() {
+		this.VSearch = this.videoSearch('');
+	}
+
+	componentWillUnmount() {
+		this.VSearch.stop();
 	}
 
 	videoSearch(term) {
@@ -31,9 +37,7 @@ class App extends Component {
 
 	render() {
 		const { videos, selectedVideo } = this.state;
-		const videoSearch = _.debounce(term => {
-			this.videoSearch(term);
-		}, 500);
+		const videoSearch = _.debounce(term => this.videoSearch(term), 500);
 
 		return (
 			<div>
